@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const routes = require('./routes'); //importando com o caminho, senão ele procura um modulo chamado routes      ele ja entende q é .js
 const app = express();
 
-mongoose.connect('mongodb+srv://OmniStack:OmniStack@omnistack-qmzyj.mongodb.net/semana09?retryWrites=true&w=majority', {
-    useNewUrlParser : true,
-    useUnifiedTopology : true,
+mongoose.connect('mongodb://OmniStack:OmniStack@omnistack-shard-00-00-qmzyj.mongodb.net:27017,omnistack-shard-00-01-qmzyj.mongodb.net:27017,omnistack-shard-00-02-qmzyj.mongodb.net:27017/test?ssl=true&replicaSet=OmniStack-shard-0&authSource=admin&retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 }) //esses 2 comandos são necessários pra não ficar dando um erro la e o Mongo usar novo formato de URL, o parser
-
+//mongodb+srv://OmniStack:OmniStack@omnistack-qmzyj.mongodb.net/test?retryWrites=true&w=majority
 app.use(express.json());
 app.use(routes);
 
