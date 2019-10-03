@@ -11,17 +11,18 @@ const User = require('../models/User');
 
 module.exports = ({
     async store(req, res){
-        const email = req.body.email;
-        //ou const { email } = req.body; q é um recurso do JS chamado desestruturação, deixa + bonito o código
+        const { email } = req.body;
 
-        let user = await User.findOne({ email }) //ou { email : email } mas como a var tem o msm nome do valor, então deixa assim
-        
+        let user = await User.findOne({ email });
+        //se ele encontrar um usuario com esse email. ele salva na variavel
+
         if(!user){
-            user = await User.create({ email }) //passamos a variavel que queremos criar
+            user = await User.create({ email });
         }
+
+        // const user = await User.create({ email });
 
         return res.json(user);
     }
 });
-
 //await só deixa prosseguir pra proxima linha quando realizar o cadastro no banco, para o await funcionar, precisa informar q a função é async
