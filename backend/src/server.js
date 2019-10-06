@@ -1,14 +1,20 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
+const path = require('path');
+
 const routes = require('./routes'); //importando com o caminho, senão ele procura um modulo chamado routes      ele ja entende q é .js
 const app = express();
 
-mongoose.connect('mongodb+srv://omniStack:omniStack@omnistack-qmzyj.mongodb.net/omnistack?retryWrites=true&w=majority',{
+mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack-qmzyj.mongodb.net/omnistack?retryWrites=true&w=majority',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }); //esses 2 comandos são necessários pra não ficar dando um erro la e o Mongo usar novo formato de URL, o parser
 //mongodb+srv://OmniStack:OmniStack@omnistack-qmzyj.mongodb.net/test?retryWrites=true&w=majority
+
+app.use(cors()); //vc pode setar app.use(cors({ 'http://localhost:3333 })) para só esse endereço acessar, mas n é util agr
 app.use(express.json());
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads'))); //forma q o express usa pra retornar arquivos estaticos
 app.use(routes);
 
 app.listen(3333); //acessa a aplicação pelo localhost:3333
